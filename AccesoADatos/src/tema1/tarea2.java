@@ -1,10 +1,13 @@
 package tema1;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class tarea2 {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		// TODO Auto-generated method stub
 		/*
 		 * Dado un directorio que esté colgando del raiz, recorrer los ficheros del
@@ -22,41 +25,61 @@ public class tarea2 {
 		// Utilizamos el String que contiene la ruta para
 		// un objeto de la clase File
 		File carpeta = new File(ruta);
-		while (!carpeta.exists()) {
+		boolean existe = carpeta.exists();
+		boolean esRoot = false;
+		File[] root = carpeta.listRoots();
+		try {
+			while (!existe) {
+				System.out.println("el directorio no existe");
+				for (int i = 0; i < root.length; i++) {
 
-			System.out.println("el directorio no existe");
-			try {
-			carpeta.mkdir() ;
-			
-			System.out.println("directorio creado");
-			System.out.println("directorio vacio");
-			}catch(Exception e) {
-				System.out.println("no se ha podido crear");
-			}
-		}
-		// Listo los archivos y los guardo en un Array de tipo File
-		File[] archivos = carpeta.listFiles();
-		// Recorro el array
+					if (ruta.startsWith(root[i].getAbsolutePath())) {
+						esRoot = true;
+					}
+				}
 
-		for (int i = 0; i < archivos.length; i++) {
-			File archivoActual = archivos[i];
-			// Si el File es un arvhivo se muestra el nombre
-			// Si es una carpeta se muestra el símbolo '¬' delante
-			mensaje = archivoActual.getName() + "--- ";
-			if (archivoActual.canWrite()) {
-				mensaje += " se puede escribir,";
-			} else {
-				mensaje += " no se puede escribir,";
+				if (esRoot == false) {
+					throw new IOException("no cuelga de la raiz " + carpeta.getAbsolutePath());
+
+				}
+				if (carpeta.mkdir()) {
+					System.out.println("directorio creado " + carpeta.getAbsolutePath());
+					System.out.println("directorio vacio");
+					existe = true;
+				} else {
+					throw new IOException("no se ha podido crear el directorio " + carpeta.getAbsolutePath());
+
+				}
+
 			}
-			if (archivoActual.isHidden()) {
-				mensaje += " esta oculto,";
-			} else {
-				mensaje += " no esta oculto,";
+			// Listo los archivos y los guardo en un Array de tipo File
+
+			File[] archivos = carpeta.listFiles();
+			// Recorro el array
+
+			for (int i = 0; i < archivos.length; i++) {
+				File archivoActual = archivos[i];
+				// Si el File es un arvhivo se muestra el nombre
+				// Si es una carpeta se muestra el símbolo '¬' delante
+				mensaje = archivoActual.getName() + "--- ";
+				if (archivoActual.canWrite()) {
+					mensaje += " se puede escribir,";
+				} else {
+					mensaje += " no se puede escribir,";
+				}
+				if (archivoActual.isHidden()) {
+					mensaje += " esta oculto,";
+				} else {
+					mensaje += " no esta oculto,";
+				}
+				System.out.println(mensaje + " " + archivoActual.getTotalSpace() + " bytes");
 			}
-			System.out.println(mensaje + " " + archivoActual.getTotalSpace() + " bytes");
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			existe = true;
+
 		}
-		
 	}
 
-	}
-
+}
