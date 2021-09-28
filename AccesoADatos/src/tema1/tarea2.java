@@ -39,7 +39,7 @@ public class tarea2 {
 				}
 
 				if (esRoot == false) {
-					throw new IOException("no cuelga de la raiz " + carpeta.getAbsolutePath());
+					throw new GestionExcepciones("no cuelga de la raiz por lo que no se puede crear " + carpeta.getAbsolutePath());
 
 				}
 				if (carpeta.mkdir()) {
@@ -47,7 +47,7 @@ public class tarea2 {
 					System.out.println("directorio vacio");
 					existe = true;
 				} else {
-					throw new IOException("no se ha podido crear el directorio " + carpeta.getAbsolutePath());
+					throw new GestionExcepciones("no se ha podido crear el directorio " + carpeta.getAbsolutePath());
 
 				}
 
@@ -74,12 +74,19 @@ public class tarea2 {
 				}
 				System.out.println(mensaje + " " + archivoActual.getTotalSpace() + " bytes");
 			}
-		} catch (Exception e) {
+			
+		} catch(GestionExcepciones e) {
+			System.err.println(e.getMessage());
+			existe = true;
+
+		}
+		catch (Exception e) {
 
 			e.printStackTrace();
 			existe = true;
 
 		}
+		
 	}
 
 }
