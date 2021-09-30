@@ -1,9 +1,11 @@
 package tema1;
 
 import java.io.File;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.Scanner;
 
 public class tarea2 {
@@ -72,7 +74,12 @@ public class tarea2 {
 				} else {
 					mensaje += " no esta oculto,";
 				}
+				if(archivoActual.lastModified()+864000000 > new Date().getTime() ) {
+					archivoActual.setReadOnly();
+					System.out.println(archivoActual.lastModified());
+				}
 				System.out.println(mensaje + " " + archivoActual.getTotalSpace() + " bytes");
+				
 			}
 			
 		} catch(GestionExcepciones e) {
