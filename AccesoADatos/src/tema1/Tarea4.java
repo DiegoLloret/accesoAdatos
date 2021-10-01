@@ -20,19 +20,8 @@ public class Tarea4 {
 			FileInputStream t= new FileInputStream(carpeta);
 			byte[] buffer= new byte[(int)carpeta.length()];
 			t.read(buffer);
+			t.close();
 			
-//			if (carpeta.getName() == null) {
-//				System.out.println("es nulo");
-//			} else {
-//
-//				for (int i = 0; i < carpeta.length(); i++) {
-//
-//					 ch= t.read(buffer);
-//					
-//         System.out.print(buffer);
-//				}
-//
-//			}
 			   System.out.print(new String (buffer));
 		} catch (Exception e) {
 			System.out.println(e);
