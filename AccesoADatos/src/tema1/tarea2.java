@@ -12,18 +12,17 @@ public class tarea2 {
 	public static void main(String[] args) throws InterruptedException {
 		// TODO Auto-generated method stub
 		/*
-		 * Dado un directorio que esté colgando del raiz, recorrer los ficheros del
-		 * mismo, es indicar para cada uno de ellos: - Nombre - Se puede o no se puede
-		 * escribir - Es un fichero oculto o no - Tamaño en bytes Comprobar si existe o
-		 * no, en caso de existir realizar lo indicado anteriormente, y sino existe,
-		 * indicarlo mediante mensaje, crearlo.
+		 * el programa te pide la ruta de un fichero y si se ha modificado en los ultimos 10 dias lo pone de solo lectura.
+		 * 
+		 *
 		 * 
 		 */
 		System.out.println("Escribe un directorio colgado de la raiz");
 		Scanner sc = new Scanner(System.in);
 		String ruta = sc.nextLine();
 		String mensaje = "";
-
+		long tiempo= new Date().getTime();
+		
 		// Utilizamos el String que contiene la ruta para
 		// un objeto de la clase File
 		File carpeta = new File(ruta);
@@ -74,9 +73,13 @@ public class tarea2 {
 				} else {
 					mensaje += " no esta oculto,";
 				}
-				if(archivoActual.lastModified()+864000000 > new Date().getTime() ) {
-					archivoActual.setReadOnly();
-					System.out.println(archivoActual.lastModified());
+				if(archivoActual.isFile()&& archivoActual.lastModified()+864000000 > tiempo ) {
+					if(archivoActual.setReadOnly()==true) {
+					
+					System.out.println("El fichero: "+archivoActual.getName()+ " es solo de lectura");
+					}else {
+						System.out.println("El fichero: "+archivoActual.getName()+ "  no se ha podido poner en solo lectura");
+					}
 				}
 				System.out.println(mensaje + " " + archivoActual.getTotalSpace() + " bytes");
 				
