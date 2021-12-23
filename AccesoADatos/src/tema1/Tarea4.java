@@ -9,6 +9,8 @@ import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 
 public class Tarea4 {
+	// programa al que se le pasa un argumento lee el contenido del fichero y te devuelve excepciones si no existe, no se puede leer y si hay algun 
+	//error al cerrar
 	public static void main(String[] args) throws InterruptedException {
 		File carpeta = null;
 		FileInputStream t = null;
@@ -28,7 +30,6 @@ public class Tarea4 {
 			// System.out.println("Error al leer el fichero "+args[0]+"\n"+e1);
 			// }
 			t.close();
-
 			System.out.print(new String(buffer, StandardCharsets.UTF_8));
 		} catch (FileNotFoundException e) {
 			System.out.println("Fichero no encontrado " + args[0] + "\n");

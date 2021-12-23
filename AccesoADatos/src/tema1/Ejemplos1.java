@@ -2,7 +2,7 @@ package tema1;
 
 import java.io.File;
 
-public class Ejemplo1 {
+public class Ejemplos1 {
 	public static void main(String[] args) { 
 		 //Indicamos la ruta de la carpeta a la que queramos acceder 
 		 String ruta= "C:\\Users\\Admin\\Documents\\programacion"; 
